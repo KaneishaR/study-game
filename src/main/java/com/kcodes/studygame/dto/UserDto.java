@@ -1,14 +1,11 @@
 package com.kcodes.studygame.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class UserDto {
 
     @NotNull
@@ -30,6 +27,7 @@ public class UserDto {
     @NotNull
     @NotEmpty
     private String email;
+
 
     public String getUsername() {
         return username;
