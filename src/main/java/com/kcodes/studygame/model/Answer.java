@@ -2,6 +2,7 @@ package com.kcodes.studygame.model;
 
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -18,14 +19,13 @@ public class Answer {
     private String answer;
 
     @ManyToMany(mappedBy = "questionAnswers")
-    private Set<Question> questions;
+    private Set<Question> questions = new HashSet<>();
 
     public Answer() {
     }
 
-    public Answer(String answer, Set<Question> questions) {
+    public Answer(String answer) {
         this.answer = answer;
-        this.questions = questions;
     }
 
     public Answer(Integer id, String answer, Set<Question> questions) {
