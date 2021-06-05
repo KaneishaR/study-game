@@ -2,6 +2,7 @@ package com.kcodes.studygame.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -16,24 +17,27 @@ public class Question {
     @Column(name = "question", nullable = false)
     private String question;
 
+    @Column(name="topic")
+    private Topic topic;
+
     @ManyToMany
     @JoinTable(
             name = "question_answer",
             joinColumns = @JoinColumn(name = "question_id"),
             inverseJoinColumns = @JoinColumn(name = "answer_id")
     )
-    private Set<Answer> questionAnswers;
+    private Set<Answer> questionAnswers = new HashSet<>();
 
     public Question() {
     }
 
-    public Question(String question, Set<Answer> questionAnswers) {
+    public Question(String question, Set<Answer> questionAnswers, Topic topic) {
         this.question = question;
         this.questionAnswers = questionAnswers;
+        this.topic = topic;
     }
 
-    public Question(Integer id, String question, Set<Answer> questionAnswers) {
-        this.id = id;
+    public Question( String question, Set<Answer> questionAnswers, String topic) {
         this.question = question;
         this.questionAnswers = questionAnswers;
     }
@@ -60,5 +64,13 @@ public class Question {
 
     public void setQuestionAnswers(Set<Answer> questionAnswers) {
         this.questionAnswers = questionAnswers;
+    }
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
     }
 }
