@@ -18,15 +18,22 @@ public class GameQuestion {
     @Column(name = "game_result", nullable = false)
     private String gameResult;
 
-    @Column(name = "game_questiom", nullable = false)
+    @Column(name = "game_question", nullable = false)
     private String gameQuestion;
 
-    @Column(name = "game_questiom", nullable = false)
-    private Set<GameAnswer> answers;
+    @ManyToMany
+    @JoinTable(
+            name = "question_answers",
+            joinColumns = @JoinColumn(name = "question_id"),
+            inverseJoinColumns = @JoinColumn(name = "game_answer_id"))
+    private Set<GameAnswer> gameQuestionAnswers;
+
+    @ManyToOne @JoinColumn(name = "gameId", nullable = false)
+    private Game game;
 
     public GameQuestion(Question question){
         this.gameQuestion = question.getQuestion();
-        question.getQuestionAnswers().stream().forEach((Answer ans)->this.answers.add(new GameAnswer(ans)));
+        question.getQuestionAnswers().stream().forEach((Answer ans)->this.gameQuestionAnswers.add(new GameAnswer(ans)));
         this.gameResult = "new game";
     }
 
@@ -37,13 +44,28 @@ public class GameQuestion {
         this.id = id;
         this.gameResult = gameResult;
         this.gameQuestion = gameQuestion;
-        this.answers = answers;
+        this.gameQuestionAnswers = answers;
     }
 
     public GameQuestion(String gameResult, String gameQuestion, Set<GameAnswer> answers) {
         this.gameResult = gameResult;
         this.gameQuestion = gameQuestion;
-        this.answers = answers;
+        this.gameQuestionAnswers = answers;
+    }
+
+    public GameQuestion(String gameResult, String gameQuestion, Set<GameAnswer> answers, Game game) {
+        this.gameResult = gameResult;
+        this.gameQuestion = gameQuestion;
+        this.gameQuestionAnswers = answers;
+        this.game = game;
+    }
+
+    public GameQuestion(Integer id, String gameResult, String gameQuestion, Set<GameAnswer> answers, Game game) {
+        this.id = id;
+        this.gameResult = gameResult;
+        this.gameQuestion = gameQuestion;
+        this.gameQuestionAnswers = answers;
+        this.game = game;
     }
 
     public Integer getId() {
@@ -71,11 +93,19 @@ public class GameQuestion {
     }
 
     public Set<GameAnswer> getAnswers() {
-        return answers;
+        return gameQuestionAnswers;
     }
 
     public void setAnswers(Set<GameAnswer> answers) {
-        this.answers = answers;
+        this.gameQuestionAnswers = answers;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     @Override
@@ -97,7 +127,7 @@ public class GameQuestion {
                 "id=" + id +
                 ", gameResult='" + gameResult + '\'' +
                 ", gameQuestion='" + gameQuestion + '\'' +
-                ", answers=" + answers +
+                ", answers=" + gameQuestionAnswers +
                 '}';
     }
 }

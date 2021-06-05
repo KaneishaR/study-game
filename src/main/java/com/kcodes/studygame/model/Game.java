@@ -14,7 +14,7 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "game_id")
-    private Integer id;
+    private Integer gameId;
 
     @Column(name = "game_result", nullable = false)
     private Float result;
@@ -29,7 +29,7 @@ public class Game {
     }
 
     public Game(Integer id, Float result, Set<GameQuestion> questions, User user) {
-        this.id = id;
+        this.gameId = id;
         this.result = result;
         this.questions = questions;
         this.user = user;
@@ -42,11 +42,11 @@ public class Game {
     }
 
     public Integer getId() {
-        return id;
+        return gameId;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.gameId = id;
     }
 
     public Float getResult() {
@@ -89,7 +89,7 @@ public class Game {
     @Override
     public String toString() {
         return "Game{" +
-                "id=" + id +
+                "id=" + gameId +
                 ", result=" + result +
                 ", questions=" + questions +
                 ", user=" + user +
