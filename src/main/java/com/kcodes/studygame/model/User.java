@@ -13,7 +13,7 @@ public class User  implements Serializable {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Integer userId;
+    private Integer id;
 
     @Column(name = "username", nullable = false, unique = true)
     private String username;
@@ -26,7 +26,7 @@ public class User  implements Serializable {
     }
 
     public User(Integer id, String username, Set<Game> gameSet) {
-        this.userId = id;
+        this.id = id;
         this.username = username;
         this.gameSet = gameSet;
     }
@@ -40,11 +40,11 @@ public class User  implements Serializable {
     }
 
     public Integer getId() {
-        return userId;
+        return id;
     }
 
     public void setId(Integer id) {
-        this.userId = id;
+        this.id = id;
     }
 
     public void setUsername(String username) {
@@ -75,7 +75,7 @@ public class User  implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + userId +
+                "id=" + id +
                 ", username='" + username + '\'' +
                 ", gameSet=" + gameSet +
                 '}';
