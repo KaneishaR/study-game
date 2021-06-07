@@ -7,7 +7,7 @@ phases:
       - mvn package
       - mv target/study-game-0.0.1-SNAPSHOT.jar study-game-0.0.1-SNAPSHOT.jar
 
-      artifacts:
-        files:
-          - study-game-0.0.1-SNAPSHOT.jar
-          - .ebextensions/**/*
+artifacts:
+  files:
+    - study-game-0.0.1-SNAPSHOT.jar
+    - .ebextensions/**/*
